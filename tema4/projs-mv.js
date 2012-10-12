@@ -81,7 +81,7 @@ ProJS.namespace('MVC', function(my) {
       this.data = merge(this.data, newData);
       if (this.isValid() || options.skipValidation) {
         for (var prop in newData) {
-          if (!options.slient) this.publish("change:%1".format(prop), newData[prop]);
+          if (!options.silent) this.publish("change:%1".format(prop), newData[prop]);
         }
         if (!options.silent) this.publish("change", newData);
         return this;
@@ -171,7 +171,7 @@ ProJS.namespace('MVC', function(my) {
       }
       model.subscribe('*', curry(bind(this, this._broadcast), model));
       this.models.push(model);
-      if (!options.slient) this.publish('added', model);
+      if (!options.silent) this.publish('added', model);
     },
     remove: function(cid, onlyLocal) {
       this.models = this.models.filter(function(model) {
