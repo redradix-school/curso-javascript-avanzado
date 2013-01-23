@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Todopoderoso jQuery -->
+    <script src="../../lib/js/jquery.js"></script>
+
+    <!-- Nuestras utilidades (y algunos extras) -->
+    <script src="../lib/prelude.js"></script>
+
+    <!-- Simulación del servicio AJAX -->
+    <script src="../lib/solipsist.js"></script>
+    <script src="lib/service.js"></script>
+
+    <!-- Para incluir Backbone en la pagina -->
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+
+    <!-- Integracion backbone.js + klass.js -->
+    <script src="../lib/bbone-klass-integration.js"></script>
+
+    <!-- Foundation -->
+    <script src="../lib/foundation.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../lib/css/foundation.css">
+
+    <style type="text/css" media="all">
+      .title { font-weight: bold; }
+    </style>
+
+    <title>JS Pro</title>
+  </head>
+
+  <body>
+
+    <!-- Templates -->
+
+    <script type="text/template" id="template-producto">
+
+      <div class="twelve columns">
+        <h1 class="nombre"><%= nombre %></h1>
+      </div>
+      <div class="twelve columns">
+        <table class="twelve">
+          <tr>
+            <td class="title">Nombre</td>
+            <td class="value nombre"><%= nombre %></td>
+          </tr>
+          <tr>
+            <td class="title">Categoria</td>
+            <td class="value categoria"><%= categoria %></td>
+          </tr>
+          <tr>
+            <td class="title">País</td>
+            <td class="value pais"><%= pais %></td>
+          </tr>
+          <tr>
+            <td class="title">Precio</td>
+            <td class="value precio"><%= precio %></td>
+          </tr>
+        </table>
+      </div>
+
+    </script>
+
+    <script type="text/template" id="template-producto-sidebar">
+
+      <a href="#"><%= nombre %></a>
+
+    </script>
+
+    <!-- Código de la página -->
+
+    <div class="row">
+      <div class="twelve columns">
+        <h2>Productos</h2>
+        <hr/>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <!-- Barra lateral -->
+
+      <div class="four columns">
+        <ul class="nav-bar vertical" id="barra-lateral">
+
+          <!-- Modelos de la colección aquí! -->
+
+        </ul>
+      </div>
+
+      <!-- Información detallada -->
+
+      <div class="seven columns">
+        <div class="row" id="container">
+
+        </div>
+      </div>
+    </div>
+
+    <!-- El codigo del ejercicio -->
+    <script src="code.js" type="text/javascript" charset="utf-8"></script>
+
+  </body>
+</html>
+
