@@ -1,14 +1,14 @@
-// R.Class <-> Backbone integration
+// ProJS.Class <-> Backbone integration
 
-var R = (function (my) {
+var ProJS = (function (my) {
   var wrapBackboneClass = function(className) {
     var backboneWrapped = Backbone[className],
         F = function() {},
         K = function() {};
     F.prototype = backboneWrapped.prototype;
     K.prototype = new F();
-    _.extend(K, R.Class, {constructor: backboneWrapped});
-    _.extend(K.prototype, R.Class.prototype);
+    _.extend(K, ProJS.Class, {constructor: backboneWrapped});
+    _.extend(K.prototype, ProJS.Class.prototype);
     K.prototype.init = function() {
       return backboneWrapped.apply(this, arguments);
     };
@@ -20,4 +20,4 @@ var R = (function (my) {
   my.Collection = wrapBackboneClass('Collection');
 
   return my;
-}(R || {}));
+}(ProJS || {}));
