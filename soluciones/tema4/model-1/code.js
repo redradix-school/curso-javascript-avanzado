@@ -65,6 +65,11 @@ var ProductoConIva = ProJS.Class.extend({
 // Test
 
 var p1 = new Producto();
+
+p1.on("invalid", function (model, error) {
+  console.log(error);
+});
+
 p1.set({nombre: "Jamón", categoria: "Comida", pais: "España", precio: 65});
 console.log(p1.toJSON());
 
