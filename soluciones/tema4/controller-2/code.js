@@ -37,6 +37,7 @@ var ListadoProductos = ProJS.Collection.extend({
 
 ListadoProductos.mixin(ProJS.Mediable);
 
+
 // Vista detallada
 
 var VistaProducto = ProJS.View.extend({
@@ -113,10 +114,16 @@ $(function() {
         // Cuando alguien dispare el evento "nuevo-activo"
 
         mediador.on('nuevo-activo', function (modelo) {
+
+          // Vista Detallada
+          var vistaDetallada = new VistaProducto({model: modelo}).render();
+          container.html(vistaDetallada.el);
+
           // Desactivar los demás elementos
           listado.map(function (m) {
             if (m !== modelo && m.get('activo')) m.set({activo: false});
           });
+
         });
 
       });

@@ -10,7 +10,7 @@
       ["de vestir", "de sport", "de gala", "informal", "fashion", "barato"]
     ),
     categoria: F.string_random_combinations(
-      ["Privaera", "Verano", "Otoño", "Invierno"]
+      ["Primavera", "Verano", "Otoño", "Invierno"]
     ),
     precio: F.int_between(15, 200),
     pais: F.string_random_combinations(
@@ -22,9 +22,7 @@
 
   var id;
   for (var i=0; i<100; i++) {
-    id = i + (Math.floor(Math.random() * 10) - 5);
-    id = Math.max(id, 0);
-    _products[id] = ProductFactory({id: id});
+    _products[i] = ProductFactory({id: i});
   }
 
   var Request = Solipsist.Request;
@@ -65,7 +63,6 @@
   });
 
   Request.get('/products', {delay: 700}, function (req) {
-    var results = [];
     req.success(_products.slice());
   });
 

@@ -65,7 +65,6 @@
   });
 
   Request.get('/products', {delay: 700}, function (req) {
-    var results = [];
     req.success(_products.slice());
   });
 

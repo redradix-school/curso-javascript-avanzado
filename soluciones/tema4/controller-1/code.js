@@ -33,9 +33,8 @@ var Producto = ProJS.Model.extend({
 var ListadoProductos = ProJS.Collection.extend({
   model: Producto,
   url: "/products"
-});
+})
 
-ListadoProductos.mixin(ProJS.Mediable);
 
 // Vista detallada
 
@@ -53,8 +52,6 @@ var VistaProducto = ProJS.View.extend({
     return this;
   }
 });
-
-VistaProducto.mixin(ProJS.Mediable);
 
 // Vista de la barra lateral
 
@@ -82,45 +79,24 @@ var VistaListado = ProJS.View.extend({
   },
   // Manejadores de eventos
   marcarComoActivo: function() {
-    this.notify('nuevo-activo', this.model);
     this.model.set({activo: true});
     return false;
   }
 });
 
-VistaListado.mixin(ProJS.Mediable);
-
 // Inicialización
 
 $(function() {
   var listado = new ListadoProductos(),
-      barraLateral = $("#barra-lateral"),
-      container = $("#container"),
-      // inicializamos el mediador
-      mediador = new ProJS.Mediator(function (mediador) {
+      barraLateral = $("#barra-lateral");
 
-        mediador.add(listado);
+  // Cuando el listado cargue los datos...
+  listado.on("reset", function (listado) {
+    listado.each(function (modelo) {
+      var vista = new VistaListado({model: modelo}).render();
+      barraLateral.append(vista.el);
+    });
+  });
 
-        // Cuando el listado cargue los datos...
-        listado.on('reset', function (listado) {
-          listado.each(function (modelo) {
-            var vista = new VistaListado({model: modelo}).render();
-            mediador.add(vista);
-            barraLateral.append(vista.el);
-          });
-        });
-
-        // Cuando alguien dispare el evento "nuevo-activo"
-
-        mediador.on('nuevo-activo', function (modelo) {
-          // Desactivar los demás elementos
-          listado.map(function (m) {
-            if (m !== modelo && m.get('activo')) m.set({activo: false});
-          });
-        });
-
-      });
-
-  // Cargamos los datos
   listado.fetch();
 });

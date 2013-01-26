@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+
+    <!-- Todopoderoso jQuery -->
+    <script src="../../lib/js/jquery.js"></script>
+
+    <!-- Nuestras utilidades (y algunos extras) -->
+    <script src="../lib/prelude.js"></script>
+
+    <!-- Para incluir Backbone en la pagina -->
+    <script src="../lib/underscore.js"></script>
+    <script src="../lib/backbone.js"></script>
+
+    <!-- Integracion backbone.js + klass.js -->
+    <script src="../lib/bbone-klass-integration.js"></script>
+
+    <!-- Estilos -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>JS Pro</title>
+  </head>
+
+  <body>
+
+    <section id="todoapp">
+      <header id="header">
+        <h1>Tareas</h1>
+        <input id="new-todo" placeholder="¿Qué tienes que hacer?" autofocus>
+      </header>
+
+      <section id="main">
+        <input id="toggle-all" type="checkbox">
+        <label for="toggle-all">Marcar todos como completados</label>
+        <ul id="todo-list"></ul>
+      </section>
+
+      <footer id="footer"></footer>
+    </section>
+
+    <script type="text/template" id="item-template">
+
+      <div class="view">
+        <input class="toggle" type="checkbox" <%= (completed ? 'checked' : '') %>>
+        <label><%= title %></label>
+        <button class="destroy"></button>
+      </div>
+      <input class="edit" value="<%= title %>">
+
+    </script>
+
+    <script type="text/template" id="stats-template">
+
+      <span id="todo-count"><strong><%= unchecked() %></strong> <%= unchecked() === 1 ? 'tarea pendiente' : 'tareas pendientes' %> </span>
+      <ul id="filters">
+        <li>
+          <a class="all" href="#/todas">Todas</a>
+        </li>
+        <li>
+          <a class="active" href="#/activas">Activas</a>
+        </li>
+        <li>
+          <a class="completed" href="#/completadas" >Completadas</a>
+        </li>
+      </ul>
+
+    </script>
+
+    <script src="code.js"></script>
+
+  </body>
+</html>
+
