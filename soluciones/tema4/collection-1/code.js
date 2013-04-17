@@ -51,7 +51,14 @@ var ListadoProductos = ProJS.Collection.extend({
     if (m) m.destroy();
   },
   nuevoProducto: function (attrs) {
-    this.add(attrs);
+    /*
+       var p = new Producto(attrs);
+       p.once("sync", function() {
+         this.add(p);
+       }, this);
+       p.save();
+    */
+    this.create(attrs);
   }
 });
 
