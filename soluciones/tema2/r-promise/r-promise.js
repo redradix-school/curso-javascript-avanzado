@@ -1,71 +1,87 @@
-/* global window */
+/*global window*/
 "use strict";
 
-var Defer = window.Defer = function() {
-  var self = {promise: {_isPromise: true}},
+var Prom = window.Prom = function() {
+  var self = {_isPromise: true},
       onSuc = [],
       onErr = [],
-      state,
-      vals;
+      args,
+      state;
 
-  self.promise.then = function(onSuccess, onError) {
-    var nextDefer;
-    /* Invocación inmediata si está resuelta */
-    if (state !== undefined) {
-      return (state? onSuccess : onError).apply({}, vals);
+  self.then = function(onSuccess, onError) {
+    /* .then siempre devuelve una promesa */
+    var nextPromise = new Prom(),
+        onResolve = function() {
+          var result;
+          if (typeof onSuccess === "function") {
+            try {
+              result = onSuccess.apply({}, arguments);
+            } catch (e) {
+              nextPromise.reject(e);
+            }
+          }
+          if (result && result._isPromise) {
+            result.then(
+              nextPromise.resolve.bind(nextPromise),
+              nextPromise.reject.bind(nextPromise)
+            );
+          } else {
+            nextPromise.resolve(result);
+          }
+        },
+        onReject = function() {
+          var result;
+          if (typeof onError === "function") {
+            try {
+              result = onError.apply({}, arguments);
+            } catch (e) {
+              nextPromise.reject(e);
+            }
+            if (result && result._isPromise) {
+              result.then(
+                nextPromise.resolve.bind(nextPromise),
+                nextPromise.reject.bind(nextPromise)
+              );
+            } else {
+              nextPromise.resolve(result);
+            }
+          } else {
+            nextPromise.reject.apply(nextPromise, arguments);
+          }
+        };
+    if (state === undefined) {
+      /* propagar el OK */
+      onSuc.push(onResolve);
+      /* manejar el error o propagarlo  */
+      onErr.push(onReject);
+    } else if (state) {
+      /* La promesa ya está resulta */
+      onResolve.apply({}, args);
+    } else {
+      /* La promesa ya ha sido rechazada */
+      onReject.apply({}, args);
     }
-    /* Promesa a devolver */
-    nextDefer = new Defer();
-    /* Guardamos un callback de éxito */
-    onSuc.push(function() {
-      var result;
-      if (onSuccess) {
-        try {
-          result = onSuccess.apply({}, arguments);
-        } catch(e) {
-          /* excepción en el bloque! */
-          nextDefer.reject(e);
-        }
-        if (result && result._isPromise) {
-          /* si result es una promesa, esperamos a que se resuelva/rechace */
-          result.then(nextDefer.resolve.bind(nextDefer),
-                      nextDefer.reject.bind(nextDefer));
-        } else {
-          /* si no, resolvemos la promesa devuelta */
-          nextDefer.resolve(result);
-        }
-      } else {
-        /* no tiene manejador, delegamos a la devuelta */
-        nextDefer.resolve.apply(nextDefer, arguments);
-      }
-    });
-    /* Captura o falla en cascada */
-    onErr.push(function() {
-      if (onError) {
-        /* aplicamos el callback de error y damos el error por manejado */
-        nextDefer.resolve(onError.apply({}, arguments));
-      } else {
-        /* no tiene manejador, delegamos a la devuelta */
-        nextDefer.reject.apply(nextDefer, arguments);
-      }
-    });
-    /* .then siempre devuelve una nueva promesa */
-    return nextDefer.promise;
+    return nextPromise;
   };
 
   self.resolve = function() {
     if (state !== undefined) { return; }
+    args = arguments;
     state = true;
-    vals = arguments;
-    onSuc.forEach(function(cb) { cb.apply({}, vals); });
+    onSuc.forEach(function(cb) {
+      cb.apply({}, args);
+    });
   };
 
   self.reject = function() {
     if (state !== undefined) { return; }
+    args = arguments;
     state = false;
-    vals = arguments;
-    onErr.forEach(function(cb) { cb.apply({}, vals); });
+    onErr.forEach(function(cb) {
+      cb.apply({}, args);
+    });
   };
 
   return self;
 };
+
