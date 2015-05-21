@@ -8,9 +8,11 @@ var Prom = window.Prom = function() {
       args,
       state;
 
+
   self.then = function(onSuccess, onError) {
     /* .then siempre devuelve una promesa */
     var nextPromise = new Prom(),
+        //on resolve es LO que se va a ejecutar cuando el proveedor de la promesa haga el resolve
         onResolve = function() {
           var result;
           if (typeof onSuccess === "function") {
@@ -85,3 +87,18 @@ var Prom = window.Prom = function() {
   return self;
 };
 
+Promise.all = function(promises) {
+  var left = promises.length,
+      results = [],
+      allProm = new Prom();
+  promises.forEach(fuction(p, i) {
+      p.then(function(v) {
+          left--;
+          results[i] = v;
+          if (left === 0) allProm.resolve(results);
+      }, function(e) {
+          allProm.reject(e);
+      });
+  });
+  return allProm;
+};
