@@ -18,7 +18,7 @@ var Prom = window.Prom = function() {
     args = arguments;
     state = true;
     callbacks.forEach(function(fn) {
-      cb.apply({}, args);  
+      fn.apply({}, args);
     });
   }
 
