@@ -1,0 +1,6 @@
+Aqui tenemos una serie de links que han ido saliendo durante la ultima edicion del curso de js-pro
+
+Spread operator https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator
+Coercion http://webreflection.blogspot.com.es/2010/10/javascript-coercion-demystified.html
+"use strict" https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
+
