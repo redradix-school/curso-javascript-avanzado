@@ -4,3 +4,4 @@ Spread operator https://developer.mozilla.org/en-US/docs/Web/JavaScript/Referenc
 Coercion http://webreflection.blogspot.com.es/2010/10/javascript-coercion-demystified.html
 "use strict" https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode
 
+Article about promises: http://pouchdb.com/2015/05/18/we-have-a-problem-with-promises.html
