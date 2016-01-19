@@ -31,5 +31,35 @@ var Producto = ProJS.Model.extend({
 
 var ListadoProductos = ProJS.Collection.extend({
   model: Producto
-  // Tu código aquí!
+  url: '/products',
+  listado: function() {
+    return this.toJSON();  
+  },
+  ordenarPorNombre: function() {
+    return this.sortBy(function(m) {
+      return m.get("nombre").toLowerCase(); 
+    }); 
+  },
+  precioMenorQue: function(x) {
+    return this.filter(function() {
+      return m.get("precio") < x;  
+    });  
+  borrarProducto: function(id) {
+    var model = this.get(id); 
+    this.remove(model);
+    if (model) model.destroy();
+  },
+  nuevoProducto: function(attrs) {
+    this.create(attrs);  
+  }
 });
+
+$(function() {
+  var productos = new ListadoProductos();  
+  productos.on("sync", function(attrs) {
+    productos.ordenarPorNombre().forEach(function(p) {
+      console.log(p.get("nombre"));
+    }) 
+  })
+  productos.fetch();
+})

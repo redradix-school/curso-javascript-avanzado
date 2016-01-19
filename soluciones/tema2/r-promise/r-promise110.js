@@ -11,8 +11,8 @@ var Prom = window.Prom = function() {
      // Ya no hay que ejecutar el onSuccess, sino, un decorador que se encargue de resolver la siguiente promesa
     var nextPromise = new Prom(),
         onResolve = function() {
-          onSuccess.apply({}, arguments);
-          nextPromise.resolve();
+          var result = onSuccess.apply({}, arguments);
+          nextPromise.resolve(result);
         }
     if (state === undefined) {
       onSuc.push(onResolve);

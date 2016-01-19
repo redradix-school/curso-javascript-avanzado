@@ -55,7 +55,7 @@ var VistaProducto = ProJS.View.extend({
   }
 });
 
-VistaProducto.mixin(ProJS.Mediable);
+//VistaProducto.mixin(ProJS.Mediable);
 
 // Vista de la barra lateral
 

@@ -17,7 +17,7 @@ var Prom = window.Prom = function() {
             } catch(err) {
               nextPromise.reject(err);
             }
-            if (result && typeof result._isPromise) {
+            if (result && result._isPromise) {
               result.then(
                 nextPromise.resolve.bind(nextPromise),
                 nextPromise.reject.bind(nextPromise)
@@ -34,7 +34,7 @@ var Prom = window.Prom = function() {
             } catch(err) {
               nextPromise.reject(err);
             }
-            if (result && typeof result._isPromise) {
+            if (result && result._isPromise) {
               result.then(
                 nextPromise.resolve.bind(nextPromise),
                 nextPromise.reject.bind(nextPromise)

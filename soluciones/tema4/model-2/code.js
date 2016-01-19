@@ -74,7 +74,7 @@ function cargaPrimerProducto (lista) {
   producto.on("sync", function(model) {
     console.log("Sincronizado: ", model.toJSON());
   });
-  producto.fetch();
+  producto.set({categoria: "entre tiempo"});
 }
 
 cargaLista();

@@ -1,16 +1,17 @@
 var Producto = ProJS.Model.extend({
   init: function() {
     this._super.apply(this, arguments);
+    // auto-incrementamos el ID
+    this.set({id: this.constructor.currentId++});
   },
   // Ponemos unos valores por defecto que
   // satisfagan la validación
   defaults: {
     nombre: "Producto sin nombre",
     categoria: "Sin categorizar",
-    pais: "España",
+    pais: "Espana",
     precio: 0
   },
-  urlRoot: "/products",
   set: function(attrs, options) {
     // forzamos que las llamadas a set pasen la validación
     return this._super(attrs, merge(options, {validate: true}));
@@ -29,6 +30,9 @@ var Producto = ProJS.Model.extend({
     }
   }
 });
+
+// ID inicial
+Producto.currentId = 0;
 
 // Decorador
 
@@ -58,43 +62,26 @@ var ProductoConIva = ProJS.Class.extend({
   }
 });
 
-// Test de persistencia
+// Test
 
-function cargaLista () {
-  $.get("/products", cargaPrimerProducto);
-}
+var p1 = new Producto();
 
-function cargaPrimerProducto (lista) {
-  var producto = new Producto(lista[0]);
-  producto.on("change", function(modelo) {
-    console.log("Producto:", modelo.toJSON());
-    producto.set({nombre: "Modificado"}, {silent: true});
-    producto.save();
-  });
-  producto.on("sync", function(model) {
-    console.log("Sincronizado: ", model.toJSON());
-  });
-  producto.set({categoria: "entre tiempo"});
-}
-
-cargaLista();
-
-// Tu código aquí!
-$.get("/products", function(products) {
-  console.log(products, "  hey")
- var models = [];
- for (var i=0;i < products.length;i++) {
-   models.push(new Producto(products[i]));  
- }
- var model = models[0];
- model.on("sync", function(p) {
-  console.log("Sync with server");  
- })
- model.on("change", function(model) {
-  console.log("model has been changed!");  
-  model.set({categoria: "x"}, {silent: true});
-  model.save();
- })
- model.set({nombre: "modificado!"});
- 
+p1.on("invalid", function (model, error) {
+  console.log(error);
 });
+
+p1.set({nombre: "Jamón", categoria: "Comida", pais: "España", precio: 65});
+console.log(p1.toJSON());
+
+
+p1.set({nombre: "", pais: "Korea"}); // no valido!
+console.log(p1.toJSON());
+
+var p2 = new Producto({nombre: "Perfume", categoria: "Higiene", pais: "Francia", precio: 40});
+console.log(p2.toJSON());
+
+// decorador
+var p2conIVA = new ProductoConIva(p2);
+console.log(p2conIVA.get("precio"));
+console.log(p2conIVA.get("nombre"));
+console.log(p2conIVA.toJSON());

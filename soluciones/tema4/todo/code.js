@@ -74,6 +74,7 @@ var SmartView = ProJS.View.extend({
   render: function() {
     var data = this.model.toJSON();
     this.$el.html(_.template(this.template, data));
+    return this;
   }
 });
 
@@ -149,10 +150,12 @@ var AppView = SmartView.extend({
   add: function(e) {
     var target = $(e.currentTarget);
     switch(e.keyCode) {
+      //Return or enter
       case 13:
         this.addTask(target.val());
         target.val("");
         break;
+      // Escape
       case 27:
         target.val("");
         target.blur();

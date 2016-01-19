@@ -9,7 +9,7 @@ var Producto = ProJS.Model.extend({
   defaults: {
     nombre: "Producto sin nombre",
     categoria: "Sin categorizar",
-    pais: "España",
+    pais: "Espana",
     precio: 0
   },
   set: function(attrs, options) {
@@ -65,10 +65,6 @@ var ProductoConIva = ProJS.Class.extend({
 // Test
 
 var p1 = new Producto();
-
-p1.on("invalid", function (model, error) {
-  console.log(error);
-});
 
 p1.set({nombre: "Jamón", categoria: "Comida", pais: "España", precio: 65});
 console.log(p1.toJSON());

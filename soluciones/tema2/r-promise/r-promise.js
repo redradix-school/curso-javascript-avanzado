@@ -98,7 +98,7 @@ Promise.all = function(promises) {
           if (left === 0) allProm.resolve(results);
       }, function(e) {
           allProm.reject(e);
-      });
+}
   });
   return allProm;
 };

@@ -30,9 +30,15 @@ var Producto = ProJS.Model.extend({
 // Vista
 
 var VistaProducto = ProJS.View.extend({
-
-  /* Completa la vista */
-
+  init: function() {
+    this._super(options);  
+    this.template = $('#producto-template'); 
+  },
+  render: function() {
+    var attrs = this.model.toJSON();  
+    this.$el.append(_.template(this.template, attrs));
+    return this;
+  }
 });
 
 // Inicialización
@@ -45,5 +51,6 @@ $(function() {
     });
 
     /* Conecta la vista y el modelo y muéstralo */
-
+  var vistaProducto = new VistaProducto({model: producto}); 
+  $('body').html(vistaProducto.render().el);
 });
