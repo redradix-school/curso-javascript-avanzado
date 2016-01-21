@@ -10,7 +10,6 @@ var Producto = ProJS.Model.extend({
     pais: "España",
     precio: 0
   },
-  urlRoot: "/products",
   set: function(attrs, options) {
     // forzamos que las llamadas a set pasen la validación
     return this._super(attrs, merge(options, {validate: true}));
@@ -58,24 +57,5 @@ var ProductoConIva = ProJS.Class.extend({
   }
 });
 
-// Test de persistencia
-
-function cargaLista () {
-  $.get("/products", cargaPrimerProducto);
-}
-
-function cargaPrimerProducto (lista) {
-  var producto = new Producto(lista[0]);
-  producto.on("change", function(modelo) {
-    console.log("Producto:", modelo.toJSON());
-    producto.set({nombre: "Modificado"}, {silent: true});
-    producto.save();
-  });
-  producto.on("sync", function(model) {
-    console.log("Sincronizado: ", model.toJSON());
-  });
-  producto.set({categoria: "entre tiempo"});
-}
-
-cargaLista();
+// Tu código aquí!
 
