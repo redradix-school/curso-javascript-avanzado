@@ -54,4 +54,3 @@ var Class = (function(Class) {
 
   return Class;
 }(Class || function(){}));
-
