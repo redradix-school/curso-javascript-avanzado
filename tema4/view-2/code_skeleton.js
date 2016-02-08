@@ -27,28 +27,19 @@ var Producto = ProJS.Model.extend({
   }
 });
 
-// Vista
+// Colección
 
-var MiVista = ProJS.View.extend({
-  template: $("#template-producto").html(),
-  render: function() {
-    var data = this.model.toJSON();
-    this.$el.html(
-      _.template(this.template)(data)
-    );
-    return this;
-  }
+var ListadoProductos = ProJS.Collection.extend({
+  model: Producto,
+  url: "products"
 });
+
+
+// Vista detallada
+
+
+// Vista de la barra lateral
+
 
 // Inicialización
 
-$(function() {
-  var producto = new Producto({
-      nombre: "Vino",
-      categoria: "Alimentación",
-      precio: 100
-    }),
-    miVista = new MiVista({model: producto}).render();
-
-  $("#container").append(miVista.el);
-});

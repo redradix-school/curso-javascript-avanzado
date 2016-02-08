@@ -31,7 +31,7 @@ var Producto = ProJS.Model.extend({
 
 var ListadoProductos = ProJS.Collection.extend({
   model: Producto,
-  url: "products"
+  url: "/products"
 });
 
 
@@ -57,14 +57,14 @@ var VistaProducto = ProJS.View.extend({
 var VistaListado = ProJS.View.extend({
   init: function() {
     this._super.apply(this, arguments);   
-    this.template = $('#template-producto-sidebar');
-    this.model.on("sync", _.bind(this.render, this));
+    this.template = $('#template-producto-sidebar').html();
+    this.collection.on("sync", _.bind(this.render, this));
   },
   render: function() {
     this.collection.map(function(model) {
       var attrs = model.toJSON();
       this.$el.append(_.template(this.template, attrs));
-    });
+    }.bind(this));
     return this;
   }
 
@@ -75,7 +75,7 @@ var VistaListado = ProJS.View.extend({
 $(function() {
   var productos = new ListadoProductos();
   var vistaListado = new VistaListado({collection: productos}); 
-  $('body').append(vistaListado.render().el);
+  $('#barra-lateral').append(vistaListado.render().el);
 
   productos.fetch();
 });

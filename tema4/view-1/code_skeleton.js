@@ -28,27 +28,3 @@ var Producto = ProJS.Model.extend({
 });
 
 // Vista
-
-var MiVista = ProJS.View.extend({
-  template: $("#template-producto").html(),
-  render: function() {
-    var data = this.model.toJSON();
-    this.$el.html(
-      _.template(this.template)(data)
-    );
-    return this;
-  }
-});
-
-// Inicialización
-
-$(function() {
-  var producto = new Producto({
-      nombre: "Vino",
-      categoria: "Alimentación",
-      precio: 100
-    }),
-    miVista = new MiVista({model: producto}).render();
-
-  $("#container").append(miVista.el);
-});

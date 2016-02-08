@@ -115,7 +115,7 @@ $(function() {
 
         mediador.on('nuevo-activo', function (modelo) {
 
-          // Vista Detallada
+          // Vista Detallada. Ej2 opt
           var vistaDetallada = new VistaProducto({model: modelo}).render();
           container.html(vistaDetallada.el);
 
