@@ -66,3 +66,8 @@ console.log(p1.toJSON());
 var p2 = new Producto({nombre: "Perfume", categoria: "Higiene", pais: "Francia", precio: 40});
 console.log(p2.toJSON());
 
+// decorador
+var p2conIVA = new ProductoConIva(p2);
+console.log(p2conIVA.get("precio"));
+console.log(p2conIVA.get("nombre"));
+console.log(p2conIVA.toJSON());
