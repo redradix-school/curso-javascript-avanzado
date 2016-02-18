@@ -41,11 +41,10 @@ ListadoProductos.mixin(ProJS.Mediable);
 // Vista detallada
 
 var VistaProducto = ProJS.View.extend({
+  template: $("#template-producto").html(),
   init: function(options) {
     this._super(options);
-    this.template = $("#template-producto").html();
   },
-  tagName: "div",
   render: function() {
     var data = this.model.toJSON();
     this.$el.html(
@@ -60,12 +59,12 @@ var VistaProducto = ProJS.View.extend({
 // Vista de la barra lateral
 
 var VistaListado = ProJS.View.extend({
+  template: $("#template-producto-sidebar").html(),
   events: {
     "click a": "marcarComoActivo"
   },
   init: function(options) {
     this._super(options);
-    this.template = $("#template-producto-sidebar").html();
     this.model.on("change", bind(this, this.render));
   },
   tagName: "li",

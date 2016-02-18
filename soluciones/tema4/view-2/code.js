@@ -38,11 +38,7 @@ var ListadoProductos = ProJS.Collection.extend({
 // Vista detallada
 
 var VistaProducto = ProJS.View.extend({
-  init: function(options) {
-    this._super(options);
-  },
   template: $("#template-producto").html(),
-  tagName: "div",
   render: function() {
     var data = this.model.toJSON();
     this.$el.html(

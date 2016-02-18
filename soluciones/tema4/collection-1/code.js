@@ -71,3 +71,9 @@ $(function() {
   });
   listado.fetch();
 });
+
+MiVista = ProJs.View.extend({
+
+  template: 
+
+})

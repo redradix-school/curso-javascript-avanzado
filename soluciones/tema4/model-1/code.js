@@ -81,3 +81,7 @@ var p2conIVA = new ProductoConIva(p2);
 console.log(p2conIVA.get("precio"));
 console.log(p2conIVA.get("nombre"));
 console.log(p2conIVA.toJSON());
+
+p1.on("invalid", function(model, error) {
+  console.log("error": error)  
+})
