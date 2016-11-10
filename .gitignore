@@ -18,3 +18,4 @@ public/assets/
 public/javascripts/compiled/*
 spec/javascripts/generated/*
 tmp/*
+**/node_modules/
