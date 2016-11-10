@@ -30,9 +30,9 @@ var Producto = ProJS.Model.extend({
 // Vista
 
 var VistaProducto = ProJS.View.extend({
-  init: function() {
+  init: function(options) {
     this._super(options);  
-    this.template = $('#producto-template'); 
+    this.template = $('#template-producto').html(); 
   },
   render: function() {
     var attrs = this.model.toJSON();  

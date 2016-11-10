@@ -16,7 +16,7 @@ var Prom = function() {
                 result.then(
                    nextPromise.resolve.bind(nextPromise),
                    nextPromise.reject.bind(nextPromise));
-              } else { 
+              } else {
                 nextPromise.resolve(result);
               }
             } catch(e) {
@@ -53,7 +53,7 @@ var Prom = function() {
     return nextPromise;
   }
   self.resolve = function() {
-    if (state !== undefined) {return;} 
+    if (state !== undefined) {return;}
     state = true;
     args = [].slice.call(arguments);
     onSucc.forEach(function(fn) {
@@ -61,7 +61,7 @@ var Prom = function() {
     })
   }
   self.reject = function() {
-    if (state !== undefined) {return;} 
+    if (state !== undefined) {return;}
     state = false;
     args = [].slice.call(arguments);
     onErr.forEach(function(fn) {
@@ -81,7 +81,7 @@ Prom.all = function(promises) {
       results[i] = r;
       if (!cont) {allPromise.resolve(results);}
     }, function(e) {
-     allPromise.reject(e); 
+     allPromise.reject(e);
     });
   }, i);
   return allPromise;
