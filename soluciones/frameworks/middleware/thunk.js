@@ -1,4 +1,4 @@
-export default function thunkMiddleware({dispatch, getState}) {
+module.exports = function thunkMiddleware({dispatch, getState}) {
  return next => action => {
     if (typeof action === 'function') {
       return action(dispatch, getState)

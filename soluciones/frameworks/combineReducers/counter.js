@@ -1,4 +1,4 @@
-export default function reducer(state = 0, action) {
+module.exports = function reducer(state = 0, action) {
   switch(action.type) {
   case INCREMENT:
     return state + 1
@@ -13,13 +13,13 @@ const INCREMENT = 'CONTADOR:INCREMENT'
 const DECREMENT = 'CONTADOR:DECREMENT'
 
 
-export function increment() {
+module.exports.increment = function() {
   return {
     type: INCREMENT
   }
 }
 
-export function decrement() {
+module.exports.decrement = function() {
   return {
     type: DECREMENT
   }

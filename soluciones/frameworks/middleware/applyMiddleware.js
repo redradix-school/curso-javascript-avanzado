@@ -1,4 +1,4 @@
-export default function applyMiddleware(...middlewares) {
+module.exports = function applyMiddleware(...middlewares) {
   return (createStore) => (reducer, initialState) => {
     // Redux store
     const store = createStore(reducer, initialState)
@@ -19,3 +19,5 @@ export default function applyMiddleware(...middlewares) {
     }
   }
 }
+
+

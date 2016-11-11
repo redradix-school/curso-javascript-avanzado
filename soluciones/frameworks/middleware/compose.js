@@ -1,4 +1,4 @@
-export default function compose(...fns) {
+module.exports = function compose(...fns) {
   if (fns.length === 0) {
     return args => args
   }

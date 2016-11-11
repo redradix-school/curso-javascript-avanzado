@@ -1,4 +1,4 @@
-module.exports = function createStore(reducer) {
+module.exports = function createStore(reducer, initialState={}, enhancer) {
   let state
   const listeners = []
 
@@ -27,10 +27,14 @@ module.exports = function createStore(reducer) {
   // Inicializamos el estado con una accion vacia
   dispatch({})
 
-  // Exponemos la interfaz hacia fuera
-  return {
+  // Introducimos los middlewars
+  const api = {
     getState,
     subscribe,
     dispatch
   }
+  enhancer(createStore)(reducer, initialState)
+
+  // Exponemos la interfaz hacia fuera
+  return api
 }
